@@ -139,8 +139,16 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
         // Set the camera position (View matrix)
         Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
+        Matrix.setIdentityM(scratch, 0);
+
+        Matrix.multiplyMM(scratch, 0, mViewMatrix, 0, eye.getEyeView(), 0);
+
+        Matrix.rotateM(scratch, 0, -headAngleXZ, 0, 1.0f, 0);
+        Matrix.rotateM(scratch, 0, -headAngleYZ, 1.0f, 0.0f, 0);
+        Matrix.rotateM(scratch, 0, -headAngleXY, 0.0f, 0.0f, 1.0f);
+
         // Calculate the projection and view transformation
-        Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
+        Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, scratch, 0);
 
         // Draw square
         mSquare.draw(mMVPMatrix);
