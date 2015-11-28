@@ -55,9 +55,9 @@ public class Triangle {
     static final int COORDS_PER_VERTEX = 3;
     static float triangleCoords[] = {
             // in counterclockwise order:
-            0.0f,  0.622008459f, 1.0f,   // top
-           -0.5f, -0.311004243f, 1.0f,   // bottom left
-            0.5f, -0.311004243f, 1.0f    // bottom right
+            0.0f,  0.622008459f, 2.0f,   // top
+           -0.5f, -0.311004243f, 2.0f,   // bottom left
+            0.5f, -0.311004243f, 2.0f    // bottom right
     };
     private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
