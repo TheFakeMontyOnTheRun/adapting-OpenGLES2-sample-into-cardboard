@@ -48,8 +48,7 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
     private final float[] mProjectionMatrix = new float[16];
     private final float[] mViewMatrix = new float[16];
     private final float[] mRotationMatrix = new float[16];
-
-    private float mAngle;
+    public float mAngle;
 
     /**
      * Utility method for compiling a OpenGL shader.

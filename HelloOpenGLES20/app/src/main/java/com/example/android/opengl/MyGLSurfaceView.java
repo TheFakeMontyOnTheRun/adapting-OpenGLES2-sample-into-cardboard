@@ -33,7 +33,7 @@ import javax.microedition.khronos.egl.EGLConfig;
  */
 public class MyGLSurfaceView extends CardboardView {
 
-    private final MyGLRenderer mRenderer;
+    public final MyGLRenderer mRenderer;
 
     public MyGLSurfaceView(Context context) {
         super(context);
