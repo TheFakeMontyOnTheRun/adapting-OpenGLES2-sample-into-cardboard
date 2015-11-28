@@ -19,7 +19,9 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 
-public class OpenGLES20Activity extends Activity {
+import com.google.vrtoolkit.cardboard.CardboardActivity;
+
+public class OpenGLES20Activity extends CardboardActivity {
 
     private GLSurfaceView mGLView;
 
