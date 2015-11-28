@@ -51,6 +51,9 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
     private final float[] mRotationMatrix = new float[16];
     private float[] forwardVector = new float[ 3 ];
     public float mAngle;
+    private float headAngleXZ;
+    private float headAngleXY;
+    private float headAngleYZ;
 
     /**
      * Utility method for compiling a OpenGL shader.
@@ -115,6 +118,18 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
     public void onNewFrame(HeadTransform headTransform) {
         // Draw background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+
+        headAngleXZ = extractAngleXZFromHeadtransform(headTransform);
+        headAngleYZ = extractAngleYZFromHeadtransform(headTransform);
+        headAngleXY = extractAngleXYFromHeadtransform(headTransform);
+
+        while( headAngleXZ < 0 ) {
+            headAngleXZ += 360.0;
+        }
+
+        while( headAngleXZ > 360 ) {
+            headAngleXZ -= 360.0;
+        }
     }
 
     @Override
