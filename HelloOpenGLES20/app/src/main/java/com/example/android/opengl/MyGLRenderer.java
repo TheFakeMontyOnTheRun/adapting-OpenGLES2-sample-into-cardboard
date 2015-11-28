@@ -40,6 +40,7 @@ import com.google.vrtoolkit.cardboard.Viewport;
 public class MyGLRenderer implements CardboardView.StereoRenderer  {
 
     private static final String TAG = "MyGLRenderer";
+    public static final float HALF_ARC_OVER_PI = (float) (180.0f / Math.PI);
     private Triangle mTriangle;
     private Square   mSquare;
 
@@ -48,6 +49,7 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
     private final float[] mProjectionMatrix = new float[16];
     private final float[] mViewMatrix = new float[16];
     private final float[] mRotationMatrix = new float[16];
+    private float[] forwardVector = new float[ 3 ];
     public float mAngle;
 
     /**
@@ -144,6 +146,21 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
 
         // Draw triangle
         mTriangle.draw(scratch);
+    }
+
+    private float extractAngleXYFromHeadtransform(HeadTransform headTransform) {
+        headTransform.getEulerAngles(forwardVector, 0);
+        return  360.0f - ((float)( forwardVector[ 2 ] * HALF_ARC_OVER_PI));
+    }
+
+    private float extractAngleYZFromHeadtransform(HeadTransform headTransform) {
+        headTransform.getEulerAngles(forwardVector, 0);
+        return  360.0f - ((float)( forwardVector[ 0 ] * HALF_ARC_OVER_PI ));
+    }
+
+    private float extractAngleXZFromHeadtransform(HeadTransform headTransform) {
+        headTransform.getEulerAngles(forwardVector, 0);
+        return  360.0f - ((float)( forwardVector[ 1 ] * HALF_ARC_OVER_PI ));
     }
 
     @Override
