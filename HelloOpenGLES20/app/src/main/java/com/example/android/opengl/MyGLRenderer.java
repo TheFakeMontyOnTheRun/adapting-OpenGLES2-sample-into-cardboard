@@ -46,9 +46,9 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
 
     // mMVPMatrix is an abbreviation for "Model View Projection Matrix"
     private final float[] mMVPMatrix = new float[16];
-    private final float[] mProjectionMatrix = new float[16];
     private final float[] mViewMatrix = new float[16];
     private final float[] mRotationMatrix = new float[16];
+	private float[] mProjectionMatrix = new float[16];
     private float[] forwardVector = new float[ 3 ];
     public float mAngle;
     private float headAngleXZ;
@@ -136,8 +136,10 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
     public void onDrawEye(Eye eye) {
         float[] scratch = new float[16];
 
+        mProjectionMatrix = eye.getPerspective( 0.1f, 100 );
+
         // Set the camera position (View matrix)
-        Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -1, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
         Matrix.setIdentityM(scratch, 0);
 
