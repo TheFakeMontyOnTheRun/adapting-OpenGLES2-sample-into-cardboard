@@ -15,8 +15,6 @@
  */
 package com.example.android.opengl;
 
-import android.app.Activity;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 
 import com.google.vrtoolkit.cardboard.CardboardActivity;

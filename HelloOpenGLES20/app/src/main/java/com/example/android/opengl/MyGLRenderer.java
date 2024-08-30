@@ -15,11 +15,7 @@
  */
 package com.example.android.opengl;
 
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
 import android.opengl.GLES20;
-import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
 
@@ -27,6 +23,8 @@ import com.google.vrtoolkit.cardboard.CardboardView;
 import com.google.vrtoolkit.cardboard.Eye;
 import com.google.vrtoolkit.cardboard.HeadTransform;
 import com.google.vrtoolkit.cardboard.Viewport;
+
+import javax.microedition.khronos.egl.EGLConfig;
 
 /**
  * Provides drawing instructions for a GLSurfaceView object. This class
@@ -37,19 +35,19 @@ import com.google.vrtoolkit.cardboard.Viewport;
  *   <li>{@link android.opengl.GLSurfaceView.Renderer#onSurfaceChanged}</li>
  * </ul>
  */
-public class MyGLRenderer implements CardboardView.StereoRenderer  {
+public class MyGLRenderer implements CardboardView.StereoRenderer {
 
     private static final String TAG = "MyGLRenderer";
     public static final float HALF_ARC_OVER_PI = (float) (180.0f / Math.PI);
     private Triangle mTriangle;
-    private Square   mSquare;
+    private Square mSquare;
 
     // mMVPMatrix is an abbreviation for "Model View Projection Matrix"
     private final float[] mMVPMatrix = new float[16];
     private final float[] mViewMatrix = new float[16];
     private final float[] mRotationMatrix = new float[16];
-	private float[] mProjectionMatrix = new float[16];
-    private float[] forwardVector = new float[ 3 ];
+    private float[] mProjectionMatrix = new float[16];
+    private float[] forwardVector = new float[3];
     public float mAngle;
     private float headAngleXZ;
     private float headAngleXY;
@@ -61,11 +59,11 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
      * <p><strong>Note:</strong> When developing shaders, use the checkGlError()
      * method to debug shader coding errors.</p>
      *
-     * @param type - Vertex or fragment shader type.
+     * @param type       - Vertex or fragment shader type.
      * @param shaderCode - String containing the shader code.
      * @return - Returns an id for the shader.
      */
-    public static int loadShader(int type, String shaderCode){
+    public static int loadShader(int type, String shaderCode) {
 
         // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
         // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
@@ -79,17 +77,17 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
     }
 
     /**
-    * Utility method for debugging OpenGL calls. Provide the name of the call
-    * just after making it:
-    *
-    * <pre>
-    * mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
-    * MyGLRenderer.checkGlError("glGetUniformLocation");</pre>
-    *
-    * If the operation is not successful, the check throws an error.
-    *
-    * @param glOperation - Name of the OpenGL call to check.
-    */
+     * Utility method for debugging OpenGL calls. Provide the name of the call
+     * just after making it:
+     *
+     * <pre>
+     * mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
+     * MyGLRenderer.checkGlError("glGetUniformLocation");</pre>
+     * <p>
+     * If the operation is not successful, the check throws an error.
+     *
+     * @param glOperation - Name of the OpenGL call to check.
+     */
     public static void checkGlError(String glOperation) {
         int error;
         while ((error = GLES20.glGetError()) != GLES20.GL_NO_ERROR) {
@@ -123,11 +121,11 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
         headAngleYZ = extractAngleYZFromHeadtransform(headTransform);
         headAngleXY = extractAngleXYFromHeadtransform(headTransform);
 
-        while( headAngleXZ < 0 ) {
+        while (headAngleXZ < 0) {
             headAngleXZ += 360.0;
         }
 
-        while( headAngleXZ > 360 ) {
+        while (headAngleXZ > 360) {
             headAngleXZ -= 360.0;
         }
     }
@@ -136,7 +134,7 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
     public void onDrawEye(Eye eye) {
         float[] scratch = new float[16];
 
-        mProjectionMatrix = eye.getPerspective( 0.1f, 100 );
+        mProjectionMatrix = eye.getPerspective(0.1f, 100);
 
         // Set the camera position (View matrix)
         Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -1, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
@@ -175,17 +173,17 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
 
     private float extractAngleXYFromHeadtransform(HeadTransform headTransform) {
         headTransform.getEulerAngles(forwardVector, 0);
-        return  360.0f - ((float)( forwardVector[ 2 ] * HALF_ARC_OVER_PI));
+        return 360.0f - ((float) (forwardVector[2] * HALF_ARC_OVER_PI));
     }
 
     private float extractAngleYZFromHeadtransform(HeadTransform headTransform) {
         headTransform.getEulerAngles(forwardVector, 0);
-        return  360.0f - ((float)( forwardVector[ 0 ] * HALF_ARC_OVER_PI ));
+        return 360.0f - ((float) (forwardVector[0] * HALF_ARC_OVER_PI));
     }
 
     private float extractAngleXZFromHeadtransform(HeadTransform headTransform) {
         headTransform.getEulerAngles(forwardVector, 0);
-        return  360.0f - ((float)( forwardVector[ 1 ] * HALF_ARC_OVER_PI ));
+        return 360.0f - ((float) (forwardVector[1] * HALF_ARC_OVER_PI));
     }
 
     @Override
@@ -203,7 +201,8 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
 
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method
-        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);    }
+        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
+    }
 
     @Override
     public void onSurfaceCreated(EGLConfig eglConfig) {
@@ -211,7 +210,7 @@ public class MyGLRenderer implements CardboardView.StereoRenderer  {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         mTriangle = new Triangle();
-        mSquare   = new Square();
+        mSquare = new Square();
     }
 
     @Override

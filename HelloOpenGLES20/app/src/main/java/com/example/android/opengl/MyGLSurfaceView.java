@@ -16,15 +16,8 @@
 package com.example.android.opengl;
 
 import android.content.Context;
-import android.opengl.GLSurfaceView;
-import android.view.MotionEvent;
 
 import com.google.vrtoolkit.cardboard.CardboardView;
-import com.google.vrtoolkit.cardboard.Eye;
-import com.google.vrtoolkit.cardboard.HeadTransform;
-import com.google.vrtoolkit.cardboard.Viewport;
-
-import javax.microedition.khronos.egl.EGLConfig;
 
 /**
  * A view container where OpenGL ES graphics can be drawn on screen.

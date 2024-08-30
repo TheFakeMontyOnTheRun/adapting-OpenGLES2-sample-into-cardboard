@@ -15,11 +15,11 @@
  */
 package com.example.android.opengl;
 
+import android.opengl.GLES20;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-
-import android.opengl.GLES20;
 
 /**
  * A two-dimensional triangle for use as a drawn object in OpenGL ES 2.0.
@@ -55,14 +55,14 @@ public class Triangle {
     static final int COORDS_PER_VERTEX = 3;
     static float triangleCoords[] = {
             // in counterclockwise order:
-            0.0f,  0.622008459f, 2.0f,   // top
-           -0.5f, -0.311004243f, 2.0f,   // bottom left
+            0.0f, 0.622008459f, 2.0f,   // top
+            -0.5f, -0.311004243f, 2.0f,   // bottom left
             0.5f, -0.311004243f, 2.0f    // bottom right
     };
     private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
-    float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 0.0f };
+    float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 0.0f};
 
     /**
      * Sets up the drawing object data for use in an OpenGL ES context.

@@ -8,7 +8,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId ="com.example.android.opengl"
+        applicationId = "com.example.android.opengl"
         minSdk = 22
         targetSdk = 35
         versionCode = 1
